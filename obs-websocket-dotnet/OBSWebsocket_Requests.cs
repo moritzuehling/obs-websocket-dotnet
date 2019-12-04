@@ -1167,10 +1167,10 @@ namespace OBSWebsocketDotNet
         public void SetBrowserSourceProperties(string sourceName, BrowserSourceProperties props, string sceneName = null)
         {
             //override sourcename in props with the name passed
-            props.Source = sourceName;
-            var request = new JObject();
-            var jsonString = JsonConvert.SerializeObject(request);
-            JsonConvert.PopulateObject(jsonString, request);
+            props.Source = sourceName ?? props.Source;
+
+            var jsonString = JsonConvert.SerializeObject(props);
+            var request = JObject.Parse(jsonString);
             SendRequest("SetBrowserSourceProperties", request);
         }
 
